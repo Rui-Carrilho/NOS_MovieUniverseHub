@@ -1,0 +1,7 @@
+*
+!pom.xml
+!src/
+!src/**
+!dados/
+!dados/seed_playlists.json
+!Dockerfile
