@@ -4,6 +4,7 @@ const $ = selector => document.querySelector(selector);
 let csrf = null;
 let gameRevision = 0;
 let orderIds = [];
+let orderLabels = new Map();
 const state = {
   users: [], playlists: [], userId: null, playlistId: null, members: new Set(),
   context: 0, view: 0, detail: 0, userLoad: 0, membershipReady: false,
@@ -567,14 +568,25 @@ $('#order-playlist').addEventListener('click', async () => {
   try {
     const memberships = await api(`/api/playlists/${id}/movies`);
     if (id !== state.playlistId) return;
-    orderPlaylistId = id; orderIds = memberships.map(m => m.tmdbId);
+    orderPlaylistId = id; orderIds = memberships.map(m => m.tmdbId); orderLabels = new Map();
+    const pending = [...orderIds];
+    await Promise.all(Array.from({length: Math.min(3, pending.length)}, async () => {
+      while (pending.length) {
+        const movieId = pending.shift();
+        try {
+          const movie = await api(`/api/movies/${movieId}`);
+          orderLabels.set(movieId, `${movie.title} (${releaseYear(movie.releaseDate)})`);
+        } catch { orderLabels.set(movieId, `Filme indisponível (#${movieId})`); }
+      }
+    }));
+    if (id !== state.playlistId) return;
     renderOrder(); $('#order-editor').hidden = false;
   } catch (error) { notify(errorMessage(error), true); }
 });
 function renderOrder() {
   $('#order-list').replaceChildren();
   orderIds.forEach((id, index) => {
-    const line = text('li', `TMDB #${id} `);
+    const line = text('li', (orderLabels.get(id) || `Filme #${id}`) + ' ');
     for (const [label, step] of [['↑', -1], ['↓', 1]]) {
       const button = text('button', label); button.type = 'button';
       button.setAttribute('aria-label', `${step < 0 ? 'Subir' : 'Descer'} filme ${id}`);
