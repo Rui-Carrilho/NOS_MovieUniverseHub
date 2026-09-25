@@ -177,6 +177,31 @@ class MovieUniverseHubApplicationTests {
         when(movies.details(27205L)).thenReturn(movie(27205, 7, 12));
         assertThatThrownBy(() -> game.start(alice)).isInstanceOf(org.springframework.web.server.ResponseStatusException.class);
     }
+
+    @Test void realCsrfTokenWorksAndRefreshesAfterLogin() throws Exception {
+        accounts.setLocalPassword("alice", "alice-password-long");
+        var initial = mvc.perform(get("/api/auth/session")).andExpect(status().isOk()).andReturn();
+        var old = (MockHttpSession) initial.getRequest().getSession(false);
+        var token = json.readTree(initial.getResponse().getContentAsString());
+        var login = mvc.perform(post("/api/auth/login").session(old)
+                .header(token.get("csrfHeader").asText(), token.get("csrfToken").asText())
+                .contentType("application/json").content("{\"username\":\"alice\",\"password\":\"alice-password-long\"}"))
+                .andExpect(status().isNoContent()).andReturn();
+        var session = (MockHttpSession) login.getRequest().getSession(false);
+        var fresh = mvc.perform(get("/api/auth/session").session(session)).andExpect(status().isOk()).andReturn();
+        var next = json.readTree(fresh.getResponse().getContentAsString());
+        mvc.perform(post("/api/playlists").session(session)
+                .header(next.get("csrfHeader").asText(), next.get("csrfToken").asText())
+                .contentType("application/json").content("{\"name\":\"Token test\",\"userId\":" + alice + "}"))
+                .andExpect(status().isCreated());
+    }
+
+    @Test void openApiAndStaticUiAreAvailableWithoutAuthentication() throws Exception {
+        mvc.perform(get("/openapi.json")).andExpect(status().isOk()).andExpect(jsonPath("$.openapi").value("3.1.0"));
+        mvc.perform(get("/api.html")).andExpect(status().isOk());
+        mvc.perform(get("/app.js")).andExpect(status().isOk());
+    }
+
     @Test void anonymousCsrfEndpointAndHealthArePublic() throws Exception {
         mvc.perform(get("/api/auth/session")).andExpect(status().isOk()).andExpect(jsonPath("$.csrfToken").isString());
         mvc.perform(get("/api/health")).andExpect(status().isOk());
