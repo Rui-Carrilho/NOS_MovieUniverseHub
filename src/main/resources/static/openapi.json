@@ -3,7 +3,7 @@
   "info": {
     "title": "MovieUniverse Hub API",
     "version": "1.0.0",
-    "description": "Local session-based API. Fetch /api/auth/session first; send its csrfToken in csrfHeader for every mutation, including login/register. Fetch a fresh token after login/logout. All supplied userId values must match the authenticated session. TMDB scores are public aggregates; own rating requires a matching session."
+    "description": "Local session-based API. Fetch /api/auth/session first; send its csrfToken in csrfHeader for every mutation, including login/register. Fetch a fresh token after login/logout. All supplied userId values must match the authenticated session. Movie endpoints require login; scores are aggregates; own rating requires a matching session."
   },
   "servers": [
     {
@@ -1478,7 +1478,11 @@
       "get": {
         "summary": "Search titles",
         "operationId": "get_api_movies_search",
-        "security": [],
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -1619,7 +1623,11 @@
       "get": {
         "summary": "Movie details",
         "operationId": "get_api_movies_tmdbId",
-        "security": [],
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -1749,7 +1757,11 @@
       "get": {
         "summary": "Combined and local movie ratings",
         "operationId": "get_api_movie_scores_tmdbId",
-        "security": [],
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",

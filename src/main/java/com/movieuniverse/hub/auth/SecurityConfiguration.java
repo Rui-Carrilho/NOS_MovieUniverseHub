@@ -25,13 +25,18 @@ public class SecurityConfiguration {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/session", "/api/auth/login", "/api/auth/register").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/movies/**", "/api/movie-scores/**", "/api/health").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/health").permitAll()
+                        .requestMatchers("/", "/index.html", "/workspace.html", "/game.html", "/dashboard", "/api.html", "/openapi.json").authenticated()
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().permitAll())
                 .securityContext(context -> context.securityContextRepository(repository))
                 // Default synchronizer CSRF tokens protect all mutations, including login and registration.
                 .exceptionHandling(errors -> errors
                         .authenticationEntryPoint((request, response, exception) -> {
+                            if (!request.getRequestURI().startsWith("/api/")) {
+                                response.sendRedirect("/login");
+                                return;
+                            }
                             response.setStatus(401); response.setContentType("application/json"); response.setCharacterEncoding("UTF-8");
                             response.getWriter().write("{\"message\":\"Inicia sessão.\"}");
                         })

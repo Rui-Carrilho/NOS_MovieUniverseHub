@@ -32,7 +32,7 @@ Import uses a checksum ledger, a PostgreSQL advisory transaction lock and one tr
 
 Spring Security handles session security, CSRF and request authentication; passwords use bcrypt cost 12 with per-password salts. Password input is at least 10 characters and no more than 72 UTF-8 bytes to avoid bcrypt truncation. Login replaces the prior session. Cookies are HttpOnly/SameSite=Strict, with 30-minute session timeout; Secure cookies require an HTTPS deployment and are not enabled for this localhost HTTP setup.
 
-Every supplied userId must match the session. Playlist-path ownership is checked centrally, and playlist creation checks its body owner too. The user API exposes only the current user. Aggregate movie scores are public; individual ratings require the matching authenticated profile. Highscore names are visible to logged-in local users and the UI discloses this.
+Every supplied userId must match the session. Playlist-path ownership is checked centrally, and playlist creation checks its body owner too. The user API exposes only the current user. Movie endpoints now require authentication as part of the design checkpoint; individual ratings also require the matching authenticated profile. Highscore names are visible to logged-in local users and the UI discloses this.
 
 Seed profiles have null password hashes and cannot log in until the computer's operator uses the local password command. Public registration cannot claim an existing username. Changing a password locally does not revoke all existing sessions; stop/restart the application or log out to clear them.
 

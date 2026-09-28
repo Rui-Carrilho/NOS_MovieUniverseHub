@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#10141b" />
+    <title>MovieUniverse Hub — A tua próxima sessão</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/checkpoint.css" />
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body class="workspace">
+    <a class="skip-link" href="#main">Saltar para o conteúdo</a>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="MovieUniverse Hub, início"
+        ><span class="brand-mark" aria-hidden="true">◈</span
+        ><span>MovieUniverse <b>Hub</b></span></a
+      >
+      <nav aria-label="Navegação">
+        <a href="/">Início</a><a href="#library">Playlists</a
+        ><a href="#catalogue">Explorar</a><a href="#comparison">Comparar</a
+        ><a href="/game.html">Jogo</a
+        ><a href="#about">Sobre</a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">PARA QUEM VIVE O CINEMA</p>
+          <h1>A próxima grande história<br />começa <em>na tua lista.</em></h1>
+          <p class="lead">
+            Descobre filmes, revisita favoritos e cria a tua própria coleção.
+          </p>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="orbit"></div>
+          <span class="film-label"
+            >MOVIE<br />UNIVERSE<br /><b>HUB / 01</b></span
+          >
+        </div>
+      </section>
+      <p id="notice" class="notice" role="status" hidden></p>
+      <section id="account" aria-labelledby="account-title">
+        <h2 id="account-title">A tua conta</h2>
+        <p id="auth-info" role="status">A verificar a sessão…</p>
+        <form id="login-form" class="auth-form">
+          <div>
+            <label for="login-name">Nome</label
+            ><input
+              id="login-name"
+              autocomplete="username"
+              maxlength="80"
+              required
+            />
+          </div>
+          <div>
+            <label for="login-password">Palavra-passe</label
+            ><input
+              id="login-password"
+              type="password"
+              autocomplete="current-password"
+              required
+            />
+          </div>
+          <button type="submit">Entrar</button>
+        </form>
+        <button id="logout" type="button" hidden>Terminar sessão</button>
+        <p class="muted">
+          Usa um nome fictício. Não pedimos e-mail nem data de nascimento. Os
+          nomes dos jogadores com recordes aparecem na classificação local.
+        </p>
+      </section>
+      <section id="library" aria-labelledby="library-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">A TUA BIBLIOTECA</p>
+            <h2 id="library-title">Playlists em destaque</h2>
+          </div>
+          <button id="refresh-library" class="quiet" type="button">
+            Atualizar
+          </button>
+        </div>
+        <div class="profile-bar">
+          <label for="user-select">Perfil local</label
+          ><select id="user-select" disabled>
+            <option value="">A carregar…</option></select
+          ><span class="muted"
+            >As tuas playlists pertencem à conta autenticada.</span
+          >
+        </div>
+        <div id="playlist-cards" class="playlist-cards" aria-busy="true"></div>
+        <div class="collection-controls">
+          <div class="active-list">
+            <label for="playlist-select">Adicionar filmes a</label
+            ><select id="playlist-select" disabled>
+              <option value="">Seleciona uma playlist</option></select
+            ><button id="open-playlist" type="button" disabled>
+              Ver filmes
+            </button>
+          </div>
+          <details class="create-menu">
+            <summary>Criar playlist ou conta</summary>
+            <form id="playlist-form">
+              <label for="playlist-name">Nome da playlist</label
+              ><input
+                id="playlist-name"
+                maxlength="100"
+                required
+                placeholder="Ex.: Noites de ficção científica"
+              /><button type="submit" disabled>Criar playlist</button>
+            </form>
+            <form id="user-form">
+              <label for="username">Nome da nova conta</label
+              ><input
+                id="username"
+                autocomplete="username"
+                maxlength="80"
+                required
+                placeholder="O teu nome"
+              /><label for="register-password"
+                >Palavra-passe (10 caracteres ou mais)</label
+              ><input
+                id="register-password"
+                type="password"
+                autocomplete="new-password"
+                minlength="10"
+                required
+              /><button type="submit">Registar conta</button>
+            </form>
+          </details>
+        </div>
+        <div class="manage-actions">
+          <button id="rename-playlist" type="button" disabled>
+            Mudar nome
+          </button>
+          <button id="delete-playlist" type="button" disabled>
+            Apagar playlist
+          </button>
+          <button id="order-playlist" type="button" disabled>
+            Ordenar filmes
+          </button>
+          <button id="export-playlist" type="button" disabled>
+            Exportar JSON
+          </button>
+          <button id="show-deleted" type="button" disabled>Ver apagadas</button>
+        </div>
+        <div id="deleted-playlists" role="status"></div>
+        <div id="order-editor" hidden>
+          <h3>Ordem dos filmes</h3>
+          <ol id="order-list"></ol>
+          <button id="save-order" type="button">Guardar ordem</button
+          ><button id="cancel-order" type="button">Cancelar</button>
+        </div>
+      </section>
+      <section id="catalogue" aria-labelledby="catalogue-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">O MUNDO DO CINEMA, À TUA MANEIRA</p>
+            <h2 id="catalogue-title">Encontra a próxima sessão</h2>
+          </div>
+        </div>
+        <form id="search-form" class="search-form">
+          <label class="sr-only" for="query">Título do filme</label
+          ><input
+            id="query"
+            name="query"
+            type="search"
+            maxlength="200"
+            required
+            placeholder="Pesquisa pelo título de um filme…"
+          /><button type="submit">
+            Pesquisar <span aria-hidden="true">↗</span>
+          </button>
+        </form>
+        <div class="results-heading">
+          <h3 id="results-title">Explora o catálogo</h3>
+          <span id="result-count" class="muted"></span>
+        </div>
+        <div id="catalogue-status" class="empty-state" role="status">
+          <span class="empty-icon" aria-hidden="true">⌕</span>
+          <p>Há sempre mais uma história para descobrir.</p>
+          <span>Pesquisa um título ou abre uma das tuas playlists.</span>
+        </div>
+        <div id="movies" class="movie-grid" aria-busy="false"></div>
+        <div id="pagination" class="pagination" hidden>
+          <button id="previous-page" type="button">← Anterior</button
+          ><span id="page-label"></span
+          ><button id="next-page" type="button">Seguinte →</button>
+        </div>
+      </section>
+      <section id="comparison" aria-labelledby="comparison-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">DUAS COLEÇÕES, UMA DESCOBERTA</p>
+            <h2 id="comparison-title">Comparar playlists</h2>
+          </div>
+        </div>
+        <form id="comparison-form" class="comparison-form">
+          <div>
+            <label for="compare-left">Primeira playlist</label
+            ><select id="compare-left" required></select>
+          </div>
+          <div>
+            <label for="compare-right">Segunda playlist</label
+            ><select id="compare-right" required></select>
+          </div>
+          <button type="submit" disabled>Comparar</button>
+        </form>
+        <p id="comparison-status" role="status">
+          Cria pelo menos duas playlists no mesmo perfil.
+        </p>
+        <div id="comparison-result"></div>
+      </section>
+      <section id="game" aria-labelledby="game-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">MAIS ALTO OU MAIS BAIXO</p>
+            <h2 id="game-title">Qual tem a nota mais alta?</h2>
+          </div>
+          <button id="start-game" type="button" disabled>Novo jogo</button>
+        </div>
+        <p>
+          Filmes das tuas playlists ativas, pelo menos 100 votos e diferença
+          mínima de 0,5 pontos. Adivinha a nota combinada mais alta.
+        </p>
+        <p id="game-status" role="status">Inicia sessão para jogar.</p>
+        <div id="game-pair" class="game-pair"></div>
+        <h3>Recordes locais</h3>
+        <ol id="highscores"></ol>
+      </section>
+      <section id="about" class="about" aria-labelledby="about-title">
+        <div>
+          <p class="eyebrow">SOBRE O PROJETO</p>
+          <h2 id="about-title">Feito para colecionar histórias.</h2>
+          <p>
+            MovieUniverse Hub é um projeto local de descoberta de filmes e
+            organização de playlists. As notas combinadas juntam votos da TMDB e
+            dos perfis locais, com uma referência de 6,0 e peso 100 para moderar
+            resultados com poucos votos. Esse peso não representa votos reais.
+          </p>
+        </div>
+        <div class="attribution">
+          <a
+            href="https://www.themoviedb.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><img src="/assets/tmdb.svg" alt="TMDB" width="110" height="48"
+          /></a>
+          <p>
+            This product uses the TMDB API but is not endorsed or certified by
+            TMDB.
+          </p>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <span>MovieUniverse Hub</span
+      ><span
+        ><a href="/api.html">API / OpenAPI</a> · O teu universo. Os teus
+        filmes.</span
+      >
+    </footer>
+    <dialog id="movie-dialog" aria-labelledby="detail-title">
+      <button
+        id="close-details"
+        class="close"
+        type="button"
+        aria-label="Fechar detalhes"
+      >
+        ✕
+      </button>
+      <div id="detail-body"></div>
+    </dialog>
+  </body>
+</html>
