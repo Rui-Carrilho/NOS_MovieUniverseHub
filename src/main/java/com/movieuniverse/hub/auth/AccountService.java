@@ -18,21 +18,25 @@ public class AccountService implements UserDetailsService {
         this.jdbc = jdbc;
         this.encoder = encoder;
     }
+
     public static String username(String value) {
         if (value == null || value.isBlank() || value.strip().length() > 80)
             throw new IllegalArgumentException("O nome deve ter entre 1 e 80 caracteres.");
         return value.strip();
     }
+
     public static void password(String value) {
         if (value == null || value.length() < 10 || value.getBytes(StandardCharsets.UTF_8).length > 72)
             throw new IllegalArgumentException("A palavra-passe deve ter pelo menos 10 caracteres e no máximo 72 bytes.");
     }
+
     @Override public UserDetails loadUserByUsername(String username) {
         return jdbc.query("SELECT username, password_hash FROM app_user WHERE username = ? AND password_hash IS NOT NULL",
                 (row, n) -> User.withUsername(row.getString("username"))
                         .password(row.getString("password_hash")).roles("USER").build(), username)
                 .stream().findFirst().orElseThrow(() -> new UsernameNotFoundException("Credenciais inválidas."));
     }
+
     @Transactional
     public AppUser register(String name, String rawPassword) {
         String normalized = username(name);
