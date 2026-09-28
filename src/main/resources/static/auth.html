@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Entrar · MovieUniverse</title>
+    <link rel="stylesheet" href="/checkpoint.css" />
+    <script type="module" src="/auth-page.js"></script>
+  </head>
+  <body class="auth-page">
+    <main class="auth-layout">
+      <section class="auth-story" aria-label="MovieUniverse Hub">
+        <a class="wordmark" href="/login"
+          ><span class="brand-icon" aria-hidden="true">m.</span
+          >MovieUniverse<span class="brand-small">HUB</span></a
+        >
+        <div class="story-copy">
+          <p class="eyebrow">PARA QUEM GOSTA DE CINEMA</p>
+          <h1>
+            Há filmes que<br />ficam contigo.<br /><em>Guarda-os aqui.</em>
+          </h1>
+          <p>
+            As tuas descobertas, as tuas listas,<br />o teu universo de cinema.
+          </p>
+        </div>
+        <div class="film-art" aria-hidden="true">
+          <div class="film-frame frame-one">
+            <span>01 / DESCOBRIR</span>
+            <div class="sun"></div>
+          </div>
+          <div class="film-frame frame-two">
+            <span>02 / COLECIONAR</span>
+            <div class="stairs"></div>
+          </div>
+          <div class="film-frame frame-three">
+            <span>03 / REVISITAR</span>
+            <div class="moon"></div>
+          </div>
+        </div>
+        <p class="story-foot">UM BOM FILME É SÓ O COMEÇO.</p>
+      </section>
+      <section class="auth-panel">
+        <div class="auth-box">
+          <p class="eyebrow">O TEU LUGAR NA PRIMEIRA FILA</p>
+          <h2 id="auth-title">Bem-vindo de volta.</h2>
+          <p id="auth-subtitle" class="muted">
+            Entra para continuares a tua coleção.
+          </p>
+          <form id="auth-form">
+            <label for="name">Nome de utilizador</label
+            ><input
+              id="name"
+              name="username"
+              autocomplete="username"
+              maxlength="80"
+              required
+              placeholder="O teu nome"
+            />
+            <div class="password-label">
+              <label for="password">Palavra-passe</label
+              ><button
+                id="show-password"
+                class="text-button"
+                type="button"
+                aria-pressed="false"
+              >
+                Mostrar
+              </button>
+            </div>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              required
+              placeholder="A tua palavra-passe"
+            />
+            <p id="password-help" class="field-help" hidden>
+              Pelo menos 10 caracteres, até 72 bytes.
+            </p>
+            <p id="auth-error" class="form-error" role="alert" hidden></p>
+            <button id="submit" class="primary" type="submit">
+              Entrar <span aria-hidden="true">↗</span>
+            </button>
+          </form>
+          <p id="auth-switch" class="auth-switch">
+            Ainda não tens conta? <a href="/register">Criar conta</a>
+          </p>
+          <p class="privacy-note">
+            Só precisamos de um nome e uma palavra-passe.<br />Sem e-mail. Sem
+            complicações.
+          </p>
+        </div>
+        <div class="auth-footer">
+          <span>MovieUniverse Hub</span
+          ><span>A tua próxima sessão começa aqui.</span>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

@@ -196,15 +196,30 @@ class MovieUniverseHubApplicationTests {
                 .andExpect(status().isCreated());
     }
 
-    @Test void openApiAndStaticUiAreAvailableWithoutAuthentication() throws Exception {
-        mvc.perform(get("/openapi.json")).andExpect(status().isOk()).andExpect(jsonPath("$.openapi").value("3.1.0"));
-        mvc.perform(get("/api.html")).andExpect(status().isOk());
+    @Test void apiDocumentationRequiresAuthentication() throws Exception {
+        mvc.perform(get("/openapi.json")).andExpect(status().isFound()).andExpect(redirectedUrl("/login"));
+        mvc.perform(get("/api.html")).andExpect(status().isFound()).andExpect(redirectedUrl("/login"));
+        mvc.perform(get("/openapi.json").with(user("alice"))).andExpect(status().isOk()).andExpect(jsonPath("$.openapi").value("3.1.0"));
+        mvc.perform(get("/api.html").with(user("alice"))).andExpect(status().isOk());
         mvc.perform(get("/app.js")).andExpect(status().isOk());
+    }
+
+    @Test void dedicatedPagesGateContentAndRedirectAuthenticatedUsers() throws Exception {
+        mvc.perform(get("/login")).andExpect(status().isOk()).andExpect(forwardedUrl("/auth.html"));
+        mvc.perform(get("/register")).andExpect(status().isOk()).andExpect(forwardedUrl("/auth.html"));
+        mvc.perform(get("/login").with(user("alice"))).andExpect(status().isFound()).andExpect(redirectedUrl("/"));
+        mvc.perform(get("/workspace.html")).andExpect(status().isFound()).andExpect(redirectedUrl("/login"));
+        mvc.perform(get("/game.html")).andExpect(status().isFound()).andExpect(redirectedUrl("/login"));
+        mvc.perform(get("/game.html").with(user("alice"))).andExpect(status().isOk());
+        mvc.perform(get("/index.html")).andExpect(status().isFound()).andExpect(redirectedUrl("/login"));
+        mvc.perform(get("/dashboard")).andExpect(status().isFound()).andExpect(redirectedUrl("/login"));
+        mvc.perform(get("/api/movies/search").param("query", "Matrix")).andExpect(status().isUnauthorized());
     }
 
     @Test void anonymousCsrfEndpointAndHealthArePublic() throws Exception {
         mvc.perform(get("/api/auth/session")).andExpect(status().isOk()).andExpect(jsonPath("$.csrfToken").isString());
         mvc.perform(get("/api/health")).andExpect(status().isOk());
-        mvc.perform(get("/")).andExpect(status().isOk()).andExpect(header().exists("Content-Security-Policy"));
+        mvc.perform(get("/")).andExpect(status().isFound()).andExpect(redirectedUrl("/login"));
+        mvc.perform(get("/").with(user("alice"))).andExpect(status().isOk()).andExpect(header().exists("Content-Security-Policy"));
     }
 }

@@ -46,6 +46,7 @@ async function api(path, options = {}) {
     let body;
     try { body = await response.json(); } catch { /* Safe generic fallback. */ }
     if (response.status === 401 || response.status === 403) csrf = null;
+    if (response.status === 401) location.replace('/login');
     throw new Error(body?.message || `Não foi possível concluir o pedido (${response.status}).`);
   }
   const body = await response.text();
@@ -60,6 +61,7 @@ async function loadUsers() {
   try {
     csrf = await api('/api/auth/session');
     const user = csrf.user;
+    if (!user) { location.replace("/login"); return; }
     state.users = user ? [user] : [];
     $('#user-select').replaceChildren(new Option(user ? user.username : 'Inicia sessão', user ? user.id : ''));
     $('#user-select').disabled = true;
@@ -75,7 +77,12 @@ async function loadUsers() {
     $('#deleted-playlists').replaceChildren();
     $('#order-editor').hidden = true;
     await selectUser(user?.id ?? null);
-    if (user) await loadHighscores(); else $('#highscores').replaceChildren();
+    const destination = new URLSearchParams(location.search);
+    const playlistId = Number(destination.get('playlist'));
+    const movieId = Number(destination.get('movie'));
+    if (Number.isSafeInteger(playlistId) && state.playlists.some(p => p.id === playlistId)) await selectPlaylist(playlistId, true);
+    if (Number.isSafeInteger(movieId) && movieId > 0) await showDetails(movieId);
+    $('#highscores').replaceChildren();
   } catch (error) { notify(errorMessage(error), true); }
 }
 async function selectUser(userId) {

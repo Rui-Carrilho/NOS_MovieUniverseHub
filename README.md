@@ -17,7 +17,9 @@ Prerequisites: Git and Docker Engine/Desktop with the Docker Compose v2 plugin, 
 docker compose up --build
 ```
 
-Open http://localhost:8081. Flyway creates/updates the schema automatically. Startup imports the unchanged supplied seed. Repeated imports do not duplicate data or replace edits.
+Open http://localhost:8081. You are taken to the dedicated login page; after login, the new dashboard shows your playlists and movie collection. Register through the “Criar conta” link. The “Jogo” sidebar tab opens a separate authenticated page at /game.html. Discover, playlist management and comparison currently open the existing authenticated workspace while their redesign is pending. See docs/DESIGN_CHECKPOINT.md.
+
+Flyway creates/updates the schema automatically. Startup imports the unchanged supplied seed. Repeated imports do not duplicate data or replace edits.
 
 The database remains the existing postgres-data Compose volume; this change does not rename it. The database host port is 5433 and the browser port is 8081, both bound to localhost. If those ports are occupied, stop the previous process or adjust the documented compose ports and your browser URL.
 
@@ -91,7 +93,7 @@ Fresh database expectations: 3 users, 10 playlists (8 active, 2 deleted), 34 dis
 - One editable rating (integer 1–10) per user/movie, and rating deletion.
 - Combined scores, coverage-aware comparisons and movie overlap.
 - Session authentication, bcrypt passwords, CSRF protection and server-side ownership checks.
-- Higher/lower game and persisted local highscores.
+- Higher/lower game on a dedicated page, with score reveals and persisted local highscores.
 - Local API reference at /api.html and OpenAPI 3.1 at /openapi.json.
 
 Export downloads a playlist and its ordered movie IDs as JSON. This is a portable view of that playlist, not a full database backup or an automatic re-import format.
