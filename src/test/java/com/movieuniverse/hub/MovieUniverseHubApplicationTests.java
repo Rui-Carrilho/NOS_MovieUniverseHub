@@ -201,7 +201,7 @@ class MovieUniverseHubApplicationTests {
         mvc.perform(get("/api.html")).andExpect(status().isFound()).andExpect(redirectedUrl("/login"));
         mvc.perform(get("/openapi.json").with(user("alice"))).andExpect(status().isOk()).andExpect(jsonPath("$.openapi").value("3.1.0"));
         mvc.perform(get("/api.html").with(user("alice"))).andExpect(status().isOk());
-        mvc.perform(get("/app.js")).andExpect(status().isOk());
+        mvc.perform(get("/cinema.css")).andExpect(status().isOk());
     }
 
     @Test void dedicatedPagesGateContentAndRedirectAuthenticatedUsers() throws Exception {
@@ -209,6 +209,10 @@ class MovieUniverseHubApplicationTests {
         mvc.perform(get("/register")).andExpect(status().isOk()).andExpect(forwardedUrl("/auth.html"));
         mvc.perform(get("/login").with(user("alice"))).andExpect(status().isFound()).andExpect(redirectedUrl("/"));
         mvc.perform(get("/workspace.html")).andExpect(status().isFound()).andExpect(redirectedUrl("/login"));
+        for (String page : java.util.List.of("/discover.html", "/playlists.html", "/compare.html", "/about.html")) {
+            mvc.perform(get(page)).andExpect(status().isFound()).andExpect(redirectedUrl("/login"));
+            mvc.perform(get(page).with(user("alice"))).andExpect(status().isOk());
+        }
         mvc.perform(get("/game.html")).andExpect(status().isFound()).andExpect(redirectedUrl("/login"));
         mvc.perform(get("/game.html").with(user("alice"))).andExpect(status().isOk());
         mvc.perform(get("/index.html")).andExpect(status().isFound()).andExpect(redirectedUrl("/login"));

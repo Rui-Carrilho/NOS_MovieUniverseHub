@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#090b0f" />
+  <title>As minhas playlists · MovieUniverse</title>
+  <link rel="stylesheet" href="/checkpoint.css" />
+  <link rel="stylesheet" href="/cinema.css" />
+  <script type="module" src="/playlists.js"></script>
+</head>
+<body class="dashboard cinema-page">
+  <a class="skip" href="#main">Saltar para conteúdo</a>
+  <aside class="sidebar">
+    <a class="wordmark" href="/"><span class="brand-icon" aria-hidden="true">m.</span><span>MovieUniverse<small>HUB</small></span></a>
+    <p class="nav-label">O TEU UNIVERSO</p>
+    <nav aria-label="Principal">
+      <a href="/"><span aria-hidden="true">◫</span> Visão geral</a>
+      <a href="/discover.html"><span aria-hidden="true">⌕</span> Descobrir filmes</a>
+      <a href="/playlists.html" aria-current="page"><span aria-hidden="true">▤</span> As minhas playlists</a>
+      <a href="/compare.html"><span aria-hidden="true">⇄</span> Comparar playlists</a>
+      <a href="/game.html"><span aria-hidden="true">★</span> Jogo</a>
+    </nav>
+    <div class="sidebar-note"><span aria-hidden="true">✳</span><p>As tuas histórias,<br />à tua maneira.</p><a href="/discover.html">Descobrir filmes ↗</a></div>
+    <div class="sidebar-bottom"><span id="avatar" class="avatar">—</span><div><strong id="profile-name">A carregar…</strong><small>A tua biblioteca pessoal</small></div><button id="logout" aria-label="Terminar sessão" title="Terminar sessão">↪</button></div>
+  </aside>
+  <div class="app-main">
+    <header class="app-top"><span>O meu espaço <span class="crumb">/ As minhas playlists</span></span><a href="/discover.html" class="search-link">Descobrir filmes ↗</a></header>
+    <main id="main" class="cinema-main">
+      <section class="cinema-hero library-hero"><p class="eyebrow">A TUA COLEÇÃO</p><h1>Histórias que ficam<br /><em>contigo.</em></h1><p>Organiza os filmes que descobriste, muda a ordem e volta aos teus favoritos quando quiseres.</p></section>
+      <p id="notice" role="status" hidden></p>
+      <section class="cinema-section" aria-labelledby="lists-title">
+        <div class="cinema-section-head"><div><p class="eyebrow">BIBLIOTECA PESSOAL</p><h2 id="lists-title">As tuas playlists <span id="playlist-count" class="count">—</span></h2></div><button id="new-playlist" type="button" class="primary">+ Criar playlist</button></div>
+        <div id="playlist-list" class="cinema-list-grid" aria-busy="true"><p class="muted">A carregar playlists…</p></div>
+        <div class="deleted-tools"><button id="show-deleted" type="button" class="text-action">Ver playlists apagadas</button><div id="deleted-list" hidden></div></div>
+      </section>
+      <section id="selected-section" class="cinema-section selected-playlist" aria-labelledby="selected-title" hidden>
+        <div class="cinema-section-head"><div><p class="eyebrow">AGORA NA TUA LISTA</p><h2 id="selected-title">Playlist</h2><p id="selected-count" class="muted"></p></div><a id="add-movie-link" href="/discover.html" class="secondary">+ Adicionar filmes</a></div>
+        <div class="playlist-actions"><button id="rename-playlist" class="secondary" type="button">Mudar nome</button><button id="reorder-playlist" class="secondary" type="button">Ordenar filmes</button><button id="export-playlist" class="secondary" type="button">Exportar JSON</button><button id="delete-playlist" class="danger-action" type="button">Apagar playlist</button></div>
+        <p id="movies-status" role="status" class="cinema-empty" hidden></p>
+        <div id="playlist-movies" class="cinema-movie-grid" aria-busy="false"></div>
+      </section>
+      <footer class="dashboard-footer"><span>MovieUniverse Hub · Feito para quem gosta de cinema.</span><a href="/about.html">Sobre o projeto ↗</a></footer>
+    </main>
+  </div>
+  <dialog id="create-dialog" class="cinema-dialog compact-dialog" aria-labelledby="create-title"><form id="create-form"><button id="close-create" type="button" class="icon-button dialog-close" aria-label="Fechar">✕</button><p class="eyebrow">UMA NOVA COLEÇÃO</p><h2 id="create-title">Dar nome à playlist</h2><label for="playlist-name">Nome da playlist</label><input id="playlist-name" required maxlength="100" placeholder="Ex.: Filmes para rever" /><p id="create-error" class="form-error" role="alert" hidden></p><button type="submit" class="primary">Criar playlist ↗</button></form></dialog>
+  <dialog id="rename-dialog" class="cinema-dialog compact-dialog" aria-labelledby="rename-title"><form id="rename-form"><button id="close-rename" type="button" class="icon-button dialog-close" aria-label="Fechar">✕</button><p class="eyebrow">ATUALIZAR COLEÇÃO</p><h2 id="rename-title">Mudar nome</h2><label for="rename-name">Novo nome</label><input id="rename-name" required maxlength="100" /><p id="rename-error" class="form-error" role="alert" hidden></p><button type="submit" class="primary">Guardar nome ↗</button></form></dialog>
+  <dialog id="order-dialog" class="cinema-dialog compact-dialog" aria-labelledby="order-title"><button id="close-order" type="button" class="icon-button dialog-close" aria-label="Fechar">✕</button><p class="eyebrow">A TUA ORDEM</p><h2 id="order-title">Ordenar filmes</h2><p class="muted">Usa as setas para mudar a posição dos filmes.</p><ol id="order-list" class="order-list"></ol><p id="order-error" class="form-error" role="alert" hidden></p><button id="save-order" type="button" class="primary">Guardar ordem ↗</button></dialog>
+  <dialog id="movie-dialog" class="cinema-dialog" aria-labelledby="detail-title"><button id="close-details" type="button" class="icon-button dialog-close" aria-label="Fechar detalhes">✕</button><div id="detail-body"></div></dialog>
+</body>
+</html>

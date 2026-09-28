@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#090b0f" />
+  <title>Descobrir filmes · MovieUniverse</title>
+  <link rel="stylesheet" href="/checkpoint.css" />
+  <link rel="stylesheet" href="/cinema.css" />
+  <script type="module" src="/discover.js"></script>
+</head>
+<body class="dashboard cinema-page">
+  <a class="skip" href="#main">Saltar para conteúdo</a>
+  <aside class="sidebar">
+    <a class="wordmark" href="/"><span class="brand-icon" aria-hidden="true">m.</span><span>MovieUniverse<small>HUB</small></span></a>
+    <p class="nav-label">O TEU UNIVERSO</p>
+    <nav aria-label="Principal">
+      <a href="/"><span aria-hidden="true">◫</span> Visão geral</a>
+      <a href="/discover.html" aria-current="page"><span aria-hidden="true">⌕</span> Descobrir filmes</a>
+      <a href="/playlists.html"><span aria-hidden="true">▤</span> As minhas playlists</a>
+      <a href="/compare.html"><span aria-hidden="true">⇄</span> Comparar playlists</a>
+      <a href="/game.html"><span aria-hidden="true">★</span> Jogo</a>
+    </nav>
+    <div class="sidebar-note"><span aria-hidden="true">✳</span><p>Encontra a próxima<br />grande história.</p><a href="/playlists.html">Ver as minhas listas ↗</a></div>
+    <div class="sidebar-bottom"><span id="avatar" class="avatar">—</span><div><strong id="profile-name">A carregar…</strong><small>A tua biblioteca pessoal</small></div><button id="logout" aria-label="Terminar sessão" title="Terminar sessão">↪</button></div>
+  </aside>
+  <div class="app-main">
+    <header class="app-top"><span>O meu espaço <span class="crumb">/ Descobrir filmes</span></span><a href="/playlists.html" class="search-link">As minhas playlists ↗</a></header>
+    <main id="main" class="cinema-main">
+      <section class="cinema-hero discover-hero">
+        <p class="eyebrow">UM UNIVERSO DE FILMES</p>
+        <h1>Encontra a tua próxima<br /><em>obsessão.</em></h1>
+        <p>Pesquisa por título, explora os detalhes e guarda os filmes que merecem lugar na tua coleção.</p>
+      </section>
+      <p id="notice" role="status" hidden></p>
+      <section class="cinema-section" aria-labelledby="search-title">
+        <div class="cinema-section-head"><div><p class="eyebrow">DESCOBRIR</p><h2 id="search-title">Pesquisar filmes</h2></div></div>
+        <form id="search-form" class="cinema-search"><label class="sr-only" for="query">Título do filme</label><input id="query" type="search" maxlength="200" required placeholder="Um título, realizador ou universo..." /><button class="primary" type="submit">Pesquisar ↗</button></form>
+        <div class="discovery-toolbar"><label for="playlist-target">Guardar filmes em</label><select id="playlist-target"><option value="">Escolhe uma playlist</option></select><a href="/playlists.html">Gerir playlists ↗</a></div>
+        <div class="cinema-section-head results-heading"><div><h2 id="results-title">À espera da tua pesquisa</h2><p id="results-count" class="muted">Pesquisa um título para começar.</p></div></div>
+        <p id="search-status" class="cinema-empty" role="status">O teu próximo favorito pode estar a uma pesquisa de distância.</p>
+        <div id="movies" class="cinema-movie-grid" aria-busy="false"></div>
+        <div id="pagination" class="cinema-pagination" hidden><button id="previous-page" class="secondary" type="button">← Anterior</button><span id="page-label"></span><button id="next-page" class="secondary" type="button">Seguinte →</button></div>
+      </section>
+      <footer class="dashboard-footer"><span>MovieUniverse Hub · Feito para quem gosta de cinema.</span><a href="/about.html">Sobre o projeto ↗</a></footer>
+    </main>
+  </div>
+  <dialog id="movie-dialog" class="cinema-dialog" aria-labelledby="detail-title"><button id="close-details" type="button" class="icon-button dialog-close" aria-label="Fechar detalhes">✕</button><div id="detail-body"></div></dialog>
+</body>
+</html>

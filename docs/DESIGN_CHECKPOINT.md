@@ -1,5 +1,7 @@
 # Design checkpoint
 
+This records the earlier checkpoint. The current dark, dedicated-page design is documented in [DARK_PAGES.md](DARK_PAGES.md).
+
 ## Scope delivered
 
 - Dedicated /login and /register pages with show/hide password, validation and inline errors.

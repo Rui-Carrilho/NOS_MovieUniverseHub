@@ -63,7 +63,7 @@ async function loadLibrary() {
       $("#collection"),
       "O próximo favorito espera por ti.",
       "Pesquisa um título e guarda-o na tua primeira playlist.",
-      "/workspace.html#catalogue",
+      "/discover.html",
       "Descobrir filmes ↗",
     );
     $("#playlists").setAttribute("aria-busy", "false");
@@ -72,7 +72,7 @@ async function loadLibrary() {
   }
   const records = playlists.map((playlist, index) => {
     const tile = element("a", null, "playlist-tile");
-    tile.href = "/workspace.html?playlist=" + playlist.id + "#library";
+    tile.href = "/playlists.html?id=" + playlist.id;
     const cover = element("div", null, "playlist-cover");
     cover.append(
       element("span", String(index + 1).padStart(2, "0"), "cover-empty"),
@@ -135,13 +135,13 @@ async function loadLibrary() {
       $("#collection"),
       "Ainda há espaço para boas histórias.",
       "Adiciona filmes às tuas playlists para os encontrares aqui.",
-      "/workspace.html#catalogue",
+      "/discover.html",
       "Descobrir filmes ↗",
     );
   for (const id of collection) {
     const movie = movies.get(id);
     const card = element("a", null, "collection-card");
-    card.href = "/workspace.html?movie=" + id + "#catalogue";
+    card.href = "/discover.html?movie=" + id;
     const art = element("div", null, "movie-art");
     const url = movie && posterUrl(movie.posterUrl);
     art.append(

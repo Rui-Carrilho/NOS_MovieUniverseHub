@@ -26,7 +26,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/session", "/api/auth/login", "/api/auth/register").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/health").permitAll()
-                        .requestMatchers("/", "/index.html", "/workspace.html", "/game.html", "/dashboard", "/api.html", "/openapi.json").authenticated()
+                        .requestMatchers("/", "/index.html", "/workspace.html", "/discover.html", "/playlists.html", "/compare.html", "/game.html", "/about.html", "/dashboard", "/api.html", "/openapi.json").authenticated()
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().permitAll())
                 .securityContext(context -> context.securityContextRepository(repository))

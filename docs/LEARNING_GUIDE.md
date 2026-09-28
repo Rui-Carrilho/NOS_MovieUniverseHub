@@ -6,13 +6,13 @@ Read migrations V1 through V5 in order. Explain why movie uses the external TMDB
 
 ## Trace one search
 
-app.js → GET /api/movies/search → MovieController → MovieService → TmdbClient → TMDB.
+discover.js → GET /api/movies/search → MovieController → MovieService → TmdbClient → TMDB.
 
 The browser never sees a bearer token. MovieService caches and validates external data, then returns a small DTO. Error mapping prevents upstream bodies/credentials from reaching the browser. Read TmdbClientTest to see URL encoding and failures without a real network call.
 
 ## Trace one rating edit
 
-app.js sends PUT /api/ratings/{id}?userId=... with JSON stars and the CSRF header. Spring Security requires a session and valid token. OwnershipConfiguration checks that userId matches the session. RatingController checks that the number is an exact integer. RatingService checks bounds/user/movie. RatingRepository performs an upsert in a transaction.
+cinema-movies.js sends PUT /api/ratings/{id}?userId=... with JSON stars and the CSRF header supplied by ui-api.js. Spring Security requires a session and valid token. OwnershipConfiguration checks that userId matches the session. RatingController checks that the number is an exact integer. RatingService checks bounds/user/movie. RatingRepository performs an upsert in a transaction.
 
 Ask: why is the TMDB check before the database transaction? To avoid holding a database connection while waiting for a remote service. Why does editing not add a vote? The primary key and upsert replace the same row.
 

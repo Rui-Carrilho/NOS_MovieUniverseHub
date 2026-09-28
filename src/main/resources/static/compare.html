@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#090b0f" />
+  <title>Comparar playlists · MovieUniverse</title>
+  <link rel="stylesheet" href="/checkpoint.css" />
+  <link rel="stylesheet" href="/cinema.css" />
+  <script type="module" src="/compare.js"></script>
+</head>
+<body class="dashboard cinema-page">
+  <a class="skip" href="#main">Saltar para conteúdo</a>
+  <aside class="sidebar">
+    <a class="wordmark" href="/"><span class="brand-icon" aria-hidden="true">m.</span><span>MovieUniverse<small>HUB</small></span></a>
+    <p class="nav-label">O TEU UNIVERSO</p>
+    <nav aria-label="Principal">
+      <a href="/"><span aria-hidden="true">◫</span> Visão geral</a>
+      <a href="/discover.html"><span aria-hidden="true">⌕</span> Descobrir filmes</a>
+      <a href="/playlists.html"><span aria-hidden="true">▤</span> As minhas playlists</a>
+      <a href="/compare.html" aria-current="page"><span aria-hidden="true">⇄</span> Comparar playlists</a>
+      <a href="/game.html"><span aria-hidden="true">★</span> Jogo</a>
+    </nav>
+    <div class="sidebar-note"><span aria-hidden="true">✳</span><p>Uma coleção.<br />Novos pontos de vista.</p><a href="/playlists.html">Gerir playlists ↗</a></div>
+    <div class="sidebar-bottom"><span id="avatar" class="avatar">—</span><div><strong id="profile-name">A carregar…</strong><small>A tua biblioteca pessoal</small></div><button id="logout" aria-label="Terminar sessão" title="Terminar sessão">↪</button></div>
+  </aside>
+  <div class="app-main">
+    <header class="app-top"><span>O meu espaço <span class="crumb">/ Comparar playlists</span></span><a href="/playlists.html" class="search-link">Gerir playlists ↗</a></header>
+    <main id="main" class="cinema-main">
+      <section class="cinema-hero compare-hero"><p class="eyebrow">COLEÇÕES FRENTE A FRENTE</p><h1>Qual é a tua melhor<br /><em>sessão?</em></h1><p>Compara duas playlists pela nota combinada dos filmes e vê o que têm em comum.</p></section>
+      <p id="notice" role="status" hidden></p>
+      <section class="cinema-section" aria-labelledby="compare-title"><div class="cinema-section-head"><div><p class="eyebrow">DUELO DE PLAYLISTS</p><h2 id="compare-title">Escolhe duas listas</h2></div></div>
+        <form id="compare-form" class="compare-form"><div><label for="compare-left">Primeira playlist</label><select id="compare-left" required><option value="">Escolhe uma playlist</option></select></div><span class="versus" aria-hidden="true">VS</span><div><label for="compare-right">Segunda playlist</label><select id="compare-right" required><option value="">Escolhe uma playlist</option></select></div><button id="compare-button" type="submit" class="primary" disabled>Comparar ↗</button></form>
+        <p id="compare-status" role="status" class="cinema-empty">A carregar as tuas playlists…</p><div id="compare-result"></div>
+      </section>
+      <footer class="dashboard-footer"><span>MovieUniverse Hub · Feito para quem gosta de cinema.</span><a href="/about.html">Sobre o projeto ↗</a></footer>
+    </main>
+  </div>
+</body>
+</html>

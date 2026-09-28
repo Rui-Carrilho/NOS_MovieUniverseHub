@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>A tua biblioteca · MovieUniverse</title>
     <link rel="stylesheet" href="/checkpoint.css" />
+    <link rel="stylesheet" href="/cinema.css" />
     <script type="module" src="/dashboard.js"></script>
   </head>
   <body class="dashboard">
@@ -18,11 +19,11 @@
       <nav aria-label="Principal">
         <a href="/" aria-current="page"
           ><span aria-hidden="true">◫</span> Visão geral</a
-        ><a href="/workspace.html#catalogue"
+        ><a href="/discover.html"
           ><span aria-hidden="true">⌕</span> Descobrir filmes</a
-        ><a href="/workspace.html#library"
+        ><a href="/playlists.html"
           ><span aria-hidden="true">▤</span> As minhas playlists</a
-        ><a href="/workspace.html#comparison"
+        ><a href="/compare.html"
           ><span aria-hidden="true">⇄</span> Comparar playlists</a
         ><a href="/game.html"
           ><span aria-hidden="true">★</span> Jogo</a
@@ -31,7 +32,7 @@
       <div class="sidebar-note">
         <span aria-hidden="true">✳</span>
         <p>Uma boa coleção<br />começa com um filme.</p>
-        <a href="/workspace.html#catalogue">Encontrar o próximo ↗</a>
+        <a href="/discover.html">Encontrar o próximo ↗</a>
       </div>
       <div class="sidebar-bottom">
         <span id="avatar" class="avatar">—</span>
@@ -51,7 +52,7 @@
     <div class="app-main">
       <header class="app-top">
         <span>O meu espaço <span class="crumb">/ Visão geral</span></span
-        ><a href="/workspace.html#catalogue" class="search-link"
+        ><a href="/discover.html" class="search-link"
           ><span aria-hidden="true">⌕</span> Procurar um filme
           <span aria-hidden="true">↗</span></a
         >
@@ -74,7 +75,7 @@
               Encontra um filme. Dá-lhe uma nota.<br />Guarda-o numa lista só
               tua.
             </p>
-            <a class="light-button" href="/workspace.html#catalogue"
+            <a class="light-button" href="/discover.html"
               >Explorar filmes <span aria-hidden="true">↗</span></a
             >
           </div>
@@ -94,7 +95,7 @@
               </h2>
               <p class="muted">Cada lista, uma nova sessão.</p>
             </div>
-            <a href="/workspace.html#library">Gerir playlists ↗</a>
+            <a href="/playlists.html">Gerir playlists ↗</a>
           </div>
           <div id="playlists" class="playlist-grid" aria-busy="true">
             <p class="muted">A preparar a tua biblioteca…</p>
@@ -106,7 +107,7 @@
               <p class="eyebrow">ESCOLHIDOS POR TI</p>
               <h2 id="movies-heading">Na tua coleção</h2>
             </div>
-            <a href="/workspace.html#catalogue">Descobrir mais ↗</a>
+            <a href="/discover.html">Descobrir mais ↗</a>
           </div>
           <div id="collection" class="collection-grid" aria-busy="true">
             <p class="muted">A carregar os teus filmes…</p>
@@ -114,7 +115,7 @@
         </section>
         <footer class="dashboard-footer">
           <span>MovieUniverse Hub · Feito para quem gosta de cinema.</span
-          ><a href="/workspace.html#about"
+          ><a href="/about.html"
             ><img src="/assets/tmdb.svg" alt="TMDB" width="65" /> Sobre o
             projeto</a
           >

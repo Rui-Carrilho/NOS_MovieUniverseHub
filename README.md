@@ -17,7 +17,7 @@ Prerequisites: Git and Docker Engine/Desktop with the Docker Compose v2 plugin, 
 docker compose up --build
 ```
 
-Open http://localhost:8081. You are taken to the dedicated login page; after login, the new dashboard shows your playlists and movie collection. Register through the “Criar conta” link. The “Jogo” sidebar tab opens a separate authenticated page at /game.html. Discover, playlist management and comparison currently open the existing authenticated workspace while their redesign is pending. See docs/DESIGN_CHECKPOINT.md.
+Open http://localhost:8081. You are taken to the dedicated login page; after login, the dark cinema dashboard shows your playlists and movie collection. Register through the “Criar conta” link. Every sidebar destination has its own authenticated page: discovery, playlists, comparison and game. See docs/DARK_PAGES.md for the page structure and review checklist.
 
 Flyway creates/updates the schema automatically. Startup imports the unchanged supplied seed. Repeated imports do not duplicate data or replace edits.
 
@@ -126,7 +126,7 @@ This is a local assignment application, not a production hosting configuration. 
 
 ## Architecture / learning
 
-Read docs/BATCH_2.md for the new code and docs/LEARNING_GUIDE.md for the end-to-end walkthrough. Layers are controllers → services → JDBC repositories, with TMDB isolated behind its client/service and the scoring policy in a pure Java class.
+Read docs/DARK_PAGES.md for the current browser code and docs/LEARNING_GUIDE.md for the end-to-end walkthrough. The older docs/BATCH_2.md and docs/DESIGN_CHECKPOINT.md describe earlier implementation stages. Layers are controllers → services → JDBC repositories, with TMDB isolated behind its client/service and the scoring policy in a pure Java class.
 
 The learning copy is separate from this project. Its copied .env would connect to the same database: configure a separate database before experimenting. Read its BACKUP_RECOVERY.md for the recovery limitation.
 
